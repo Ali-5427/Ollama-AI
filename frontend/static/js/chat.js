@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!message) return;
 
         addMessage(message, 'user');
-        history.push({ role: 'user', text: message });
         userInput.value = '';
+        const requestHistory = [...history];
 
         const typingIndicatorId = showTypingIndicator();
 
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     message: message,
-                    history: history
+                    history: requestHistory
                 }),
             });
 
@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const reply = data.reply || 'Sorry, I have no reply.';
             addMessage(reply, 'bot');
+            history.push({ role: 'user', text: message });
             history.push({ role: 'assistant', text: reply });
 
         } catch (error) {

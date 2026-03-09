@@ -25,6 +25,10 @@ OLLAMA_ENDPOINT = os.getenv("OLLAMA_ENDPOINT", "/api/chat").strip()
 OLLAMA_CF_ACCESS_CLIENT_ID = os.getenv("OLLAMA_CF_ACCESS_CLIENT_ID", "").strip()
 OLLAMA_NGROK_SKIP_WARNING = os.getenv("OLLAMA_NGROK_SKIP_WARNING", "").strip()
 OLLAMA_USER_AGENT = os.getenv("OLLAMA_USER_AGENT", "").strip()
+try:
+    MAX_HISTORY_TURNS = max(0, int(os.getenv("MAX_HISTORY_TURNS", "12")))
+except ValueError:
+    MAX_HISTORY_TURNS = 12
 
 SYSTEM_PROMPT = (
     "You are a helpful, friendly AI assistant called Chatbot. "
@@ -52,12 +56,27 @@ def chat():
         return jsonify({"error": "No message provided"}), 400
 
     try:
-        conversation_text = SYSTEM_PROMPT + "\n\n"
+        cleaned_history = []
         for turn in history:
             role = turn.get("role", "user")
             text = (turn.get("text") or "").strip()
             if not text:
                 continue
+            if role not in ("user", "assistant"):
+                role = "user"
+            cleaned_history.append({"role": role, "text": text})
+
+        # Guard against clients sending current user message in both `history` and `message`.
+        if cleaned_history and cleaned_history[-1]["role"] == "user" and cleaned_history[-1]["text"] == user_message:
+            cleaned_history = cleaned_history[:-1]
+
+        if MAX_HISTORY_TURNS > 0:
+            cleaned_history = cleaned_history[-MAX_HISTORY_TURNS:]
+
+        conversation_text = SYSTEM_PROMPT + "\n\n"
+        for turn in cleaned_history:
+            role = turn["role"]
+            text = turn["text"]
             if role == "user":
                 conversation_text += f"User: {text}\n"
             else:
@@ -100,13 +119,9 @@ def chat():
                 )
             else:
                 messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-                for turn in history:
-                    role = turn.get("role", "user")
-                    text = (turn.get("text") or "").strip()
-                    if not text:
-                        continue
-                    if role not in ("user", "assistant"):
-                        role = "user"
+                for turn in cleaned_history:
+                    role = turn["role"]
+                    text = turn["text"]
                     messages.append({"role": role, "content": text})
                 messages.append({"role": "user", "content": user_message})
 
