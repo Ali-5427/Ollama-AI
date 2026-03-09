@@ -1,0 +1,173 @@
+/* ===== Base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+/* ===== Light Theme ===== */
+body.light {
+    background: #f9fafb;
+    color: #111827;
+}
+
+/* ===== Dark Theme ===== */
+body.dark {
+    background: #111827;
+    color: #f9fafb;
+}
+
+/* ===== Top Bar ===== */
+.top-bar {
+    width: 100%;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    background: #e5e7eb;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+body.dark .icon-btn {
+    background: #374151;
+    color: #f9fafb;
+}
+
+/* ===== Chat Container ===== */
+.chat-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+body.light .chat-container {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+}
+
+body.dark .chat-container {
+    background: #1f2933;
+    border: 1px solid #374151;
+}
+
+/* ===== Messages ===== */
+.chat-messages {
+    height: 70vh;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+/* ===== Message Bubbles ===== */
+.message {
+    margin: 10px 0;
+    max-width: 80%;
+}
+
+.message-content {
+    padding: 12px 16px;
+    border-radius: 10px;
+    line-height: 1.4;
+}
+
+/* User */
+.user-message {
+    margin-left: auto;
+}
+
+body.light .user-message .message-content {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+body.dark .user-message .message-content {
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+/* Bot */
+.bot-message {
+    margin-right: auto;
+}
+
+body.light .bot-message .message-content {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+body.dark .bot-message .message-content {
+    background: #374151;
+    color: #f9fafb;
+}
+
+/* ===== Typing Indicator ===== */
+.typing-indicator .message-content {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dots .dot {
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: .3; }
+    50% { opacity: 1; }
+    100% { opacity: .3; }
+}
+
+/* ===== Input Area ===== */
+.chat-input-area {
+    margin-top: 15px;
+}
+
+#user-input {
+    width: 88%;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+}
+
+body.dark #user-input {
+    background: #1f2933;
+    border: 1px solid #374151;
+    color: #f9fafb;
+}
+
+/* ===== Send Button ===== */
+.send-btn {
+    width: 10%;
+    padding: 14px;
+    border-radius: 8px;
+    background: #2563eb;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.send-btn:hover {
+    opacity: 0.9;
+}

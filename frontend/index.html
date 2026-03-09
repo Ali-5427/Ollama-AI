@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Chatbot</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="light">
+    <div class="top-bar">
+        <h1 class="app-title">Chatbot</h1>
+
+        <div class="controls">
+            <button id="clear-chat" class="icon-btn">🧹 Clear</button>
+            <button id="theme-toggle" class="icon-btn">🌙</button>
+        </div>
+    </div>
+
+    <div class="chat-container">
+
+        <div class="chat-messages" id="chat-messages">
+
+            <div class="message bot-message">
+                <div class="message-content">
+                    Hello! I'm your AI assistant. How can I help you today?
+                </div>
+            </div>
+
+        </div>
+
+        <div class="chat-input-area">
+            <form id="chat-form">
+                <input type="text" id="user-input" placeholder="Type a message..." autocomplete="off" required>
+                <button type="submit" id="send-btn" class="send-btn">➤</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="static/js/chat.js"></script>
+</body>
+
+</html>
