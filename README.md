@@ -107,6 +107,26 @@ Current behavior:
 
 If your backend URL changes, update `API_BASE_URL` in `chat.js`.
 
+You can also override API URL at runtime from browser console:
+
+```js
+localStorage.setItem("CHAT_API_BASE_URL", "https://your-backend-url")
+```
+
+Reload the page after setting it.
+
+## Deploy on Vercel (Frontend)
+
+This repo includes `vercel.json` at project root to serve the frontend correctly:
+
+- `/` -> `frontend/index.html`
+- `/static/*` -> `frontend/static/*`
+
+Notes:
+
+- This Vercel setup deploys the static frontend.
+- The Flask backend should be deployed separately (for example Render/Railway/VM), then point frontend to that backend URL.
+
 ## API Contract
 
 Frontend sends:

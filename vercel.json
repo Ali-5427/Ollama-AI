@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/static/:path*",
+      "destination": "/frontend/static/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/frontend/index.html"
+    }
+  ]
+}
