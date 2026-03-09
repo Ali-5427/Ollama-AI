@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/_vercel/insights/:path*",
+      "destination": "/_vercel/insights/:path*"
+    },
+    {
       "source": "/static/:path*",
       "destination": "/frontend/static/:path*"
     },
